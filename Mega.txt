@@ -1,0 +1,65 @@
+package mega;
+
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class MegaChrome {
+    protected static WebDriver driver = null;
+    protected final String baseUrl="https://mega.nz/start";
+
+
+    @Test
+    @Order(1)
+    public void openBrowser(){
+        System.setProperty("webdriver.chrome.driver", "D:/mystat/драйвер/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.get(baseUrl);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+    }
+
+    @Test
+    @Order(2)
+    public void getRegister(){
+        driver.get("https://mega.nz/register");
+    }
+
+
+    @Test
+    @Order(3)
+    //зарегистрироваться
+    public void Register() {
+        //*[@id="register-firstname-registerpage2"]
+        //*[@id="register-lastname-registerpage2"]
+        //*[@id="register-email-registerpage2"]
+        //*[@id="register-password-registerpage2"]
+        //*[@id="register-password-registerpage3"]
+        //*[@id="register-check-registerpage2"]
+        //*[@id="register_form"]/div[8]/div[1]/input
+        //*[@id="register_form"]/button/span
+        WebElement firstname = driver.findElement(By.id("register-firstname-registerpage2"));
+        firstname.sendKeys("Tatiana");
+        WebElement lastname = driver.findElement(By.id("register-lastname-registerpage2"));
+        lastname.sendKeys("Dubko");
+        WebElement email = driver.findElement(By.id("register-email-registerpage2"));
+        email.sendKeys("fair352@bk.ru");
+        WebElement password = driver.findElement(By.id("register-password-registerpage2"));
+        password.sendKeys("112263K321");
+        WebElement password2 = driver.findElement(By.id("register-password-registerpage3"));
+        password2.sendKeys("112263K321");
+        WebElement check = driver.findElement(By.id("register-check-registerpage2"));
+        check.click();
+        WebElement form = driver.findElement(By.id("//*[@id='register_form']/div[8]/div[1]/input"));
+        form.click();
+        WebElement button = driver.findElement(By.xpath("//*[@id='register_form']/button/span"));
+        button.click();
+    }
+
+}
